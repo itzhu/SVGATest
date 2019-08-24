@@ -13,9 +13,6 @@ import java.net.URL;
 public class LoadRequest {
 
     private WeakReference<SVGAImageView> svgaImageView;
-    /**
-     * http://file.eebbk.net/server-fileserve/cloudIDN/fileServer/2019/03/22/155255925_4c9c5ef200849b62
-     */
     private URL url;
 
     /**
@@ -32,8 +29,18 @@ public class LoadRequest {
         this.svgaImageView = new WeakReference<>(svgaImageView);
         this.url = url;
         this.key = String.valueOf(svgaImageView.hashCode());
-        this.tag = String.valueOf(System.currentTimeMillis());
-        svgaImageView.setTag(tag);
+    }
+
+    public void createTag() {
+        if (tag == null) {
+            SVGAImageView svgaView = svgaImageView.get();
+            if (svgaView != null) {
+                this.tag = String.valueOf(System.currentTimeMillis());
+                svgaView.setTag(tag);
+                return true;
+            }
+        }
+        return false;
     }
 
     public SVGAParserCompletion createSvgaParserCompletion() {
