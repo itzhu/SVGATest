@@ -9,22 +9,24 @@ import com.opensource.svgaplayer.SVGAVideoEntity;
  */
 class SVGAParserCompletion implements SVGAParser.ParseCompletion {
 
+    private String svgaViewKey;
     private String svgaViewTag;
 
-    public SVGAParserCompletion(String svgaViewTag) {
+    public SVGAParserCompletion(String svgaViewKey, String svgaViewTag) {
+        this.svgaViewKey = svgaViewKey;
         this.svgaViewTag = svgaViewTag;
     }
 
     @Override
     public void onComplete(SVGAVideoEntity svgaVideoEntity) {
-        LoadRequestResult result = new LoadRequestResult(LoadRequestResult.CODE_SUCCESS, svgaViewTag);
+        LoadRequestResult result = new LoadRequestResult(LoadRequestResult.CODE_SUCCESS, svgaViewKey, svgaViewTag);
         result.setSvgaVideoEntity(svgaVideoEntity);
         SvgaLoaderManager.getInstance().dealResult(result);
     }
 
     @Override
     public void onError() {
-        LoadRequestResult result = new LoadRequestResult(LoadRequestResult.CODE_ERROR_1001, svgaViewTag);
+        LoadRequestResult result = new LoadRequestResult(LoadRequestResult.CODE_ERROR_1001, svgaViewKey, svgaViewTag);
         SvgaLoaderManager.getInstance().dealResult(result);
     }
 }

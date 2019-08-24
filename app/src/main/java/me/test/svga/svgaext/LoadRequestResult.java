@@ -18,9 +18,10 @@ public class LoadRequestResult {
 
     private SVGAVideoEntity svgaVideoEntity;
 
-    public LoadRequestResult(int stateCode, String svgaViewKey) {
+    public LoadRequestResult(int stateCode, String svgaViewKey, String svgaViewTag) {
         this.stateCode = stateCode;
         this.svgaViewKey = svgaViewKey;
+        this.svgaViewTag = svgaViewTag;
     }
 
     public boolean isSuccess() {
