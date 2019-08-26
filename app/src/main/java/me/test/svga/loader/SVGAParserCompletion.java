@@ -1,4 +1,4 @@
-package me.test.svga.svgaext;
+package me.test.svga.loader;
 
 import com.opensource.svgaplayer.SVGAParser;
 import com.opensource.svgaplayer.SVGAVideoEntity;
@@ -19,14 +19,14 @@ class SVGAParserCompletion implements SVGAParser.ParseCompletion {
 
     @Override
     public void onComplete(SVGAVideoEntity svgaVideoEntity) {
-        LoadRequestResult result = new LoadRequestResult(LoadRequestResult.CODE_SUCCESS, svgaViewKey, svgaViewTag);
+        LoadResult result = new LoadResult(LoadResult.CODE_SUCCESS, svgaViewKey, svgaViewTag);
         result.setSvgaVideoEntity(svgaVideoEntity);
-        SvgaLoaderManager.getInstance().dealResult(result);
+        SVGALoaderManager.getInstance().dealResult(result);
     }
 
     @Override
     public void onError() {
-        LoadRequestResult result = new LoadRequestResult(LoadRequestResult.CODE_ERROR_1001, svgaViewKey, svgaViewTag);
-        SvgaLoaderManager.getInstance().dealResult(result);
+        LoadResult result = new LoadResult(LoadResult.CODE_ERROR_1001, svgaViewKey, svgaViewTag);
+        SVGALoaderManager.getInstance().dealResult(result);
     }
 }

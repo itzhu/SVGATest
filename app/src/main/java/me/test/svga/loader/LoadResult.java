@@ -1,11 +1,11 @@
-package me.test.svga.svgaext;
+package me.test.svga.loader;
 
 import com.opensource.svgaplayer.SVGAVideoEntity;
 
 /**
  * Created by itzhu on 2019/8/24.
  */
-public class LoadRequestResult {
+class LoadResult {
 
     public static final int CODE_SUCCESS = 100;
     public static final int CODE_ERROR_1001 = -1001;
@@ -13,19 +13,15 @@ public class LoadRequestResult {
 
     private int stateCode;
 
-    private String svgaViewKey;
-    private String svgaViewTag;
+    private String key;
+    private String tag;
 
     private SVGAVideoEntity svgaVideoEntity;
 
-    public LoadRequestResult(int stateCode, String svgaViewKey, String svgaViewTag) {
+    public LoadResult(int stateCode, String key, String tag) {
         this.stateCode = stateCode;
-        this.svgaViewKey = svgaViewKey;
-        this.svgaViewTag = svgaViewTag;
-    }
-
-    public boolean isSuccess() {
-        return CODE_SUCCESS == stateCode;
+        this.key = key;
+        this.tag = tag;
     }
 
     public void setSvgaVideoEntity(SVGAVideoEntity svgaVideoEntity) {
@@ -40,15 +36,20 @@ public class LoadRequestResult {
         return stateCode;
     }
 
-    public String getSvgaViewKey() {
-        return svgaViewKey;
+    public String getKey() {
+        return key;
     }
 
-    public String getSvgaViewTag() {
-        return svgaViewTag;
+    public String getTag() {
+        return tag;
     }
 
-    public void setSvgaViewTag(String svgaViewTag) {
-        this.svgaViewTag = svgaViewTag;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
+
+    public boolean isSuccess() {
+        return CODE_SUCCESS == stateCode;
+    }
+
 }
