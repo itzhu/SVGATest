@@ -41,4 +41,7 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
+
+    /** https://github.com/MindorksOpenSource/PRDownloader*/
+    implementation 'com.mindorks.android:prdownloader:0.6.0'
 }

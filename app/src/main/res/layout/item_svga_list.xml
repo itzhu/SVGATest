@@ -5,7 +5,7 @@
     android:background="#cccccc"
     android:padding="10dp">
 
-    <me.test.svga.loader.SVGAExtView
+    <me.test.svga.svgaloader.SVGAExtView
         android:id="@+id/svga_view"
         android:background="#fff"
         android:layout_width="match_parent"

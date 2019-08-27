@@ -1,4 +1,4 @@
-package me.test.svga.loader;
+package me.test.svga.svgaloader;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 
 import com.opensource.svgaplayer.SVGAImageView;
 import com.opensource.svgaplayer.SVGAVideoEntity;
+
+import me.test.svga.loader.SL;
 
 /**
  * Created by itzhu on 2019/8/24.

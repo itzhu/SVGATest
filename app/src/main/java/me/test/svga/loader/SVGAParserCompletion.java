@@ -1,7 +1,11 @@
 package me.test.svga.loader;
 
+import android.support.annotation.NonNull;
+
 import com.opensource.svgaplayer.SVGAParser;
 import com.opensource.svgaplayer.SVGAVideoEntity;
+
+import me.test.svga.svgaloader.Result;
 
 /**
  * Created by itzhu on 2019/8/24.
@@ -9,24 +13,21 @@ import com.opensource.svgaplayer.SVGAVideoEntity;
  */
 class SVGAParserCompletion implements SVGAParser.ParseCompletion {
 
-    private String svgaViewKey;
-    private String svgaViewTag;
+    private String url;
 
-    public SVGAParserCompletion(String svgaViewKey, String svgaViewTag) {
-        this.svgaViewKey = svgaViewKey;
-        this.svgaViewTag = svgaViewTag;
+    public SVGAParserCompletion(@NonNull String url) {
+        this.url = url;
     }
 
     @Override
     public void onComplete(SVGAVideoEntity svgaVideoEntity) {
-        LoadResult result = new LoadResult(LoadResult.CODE_SUCCESS, svgaViewKey, svgaViewTag);
-        result.setSvgaVideoEntity(svgaVideoEntity);
-        SVGALoaderManager.getInstance().dealResult(result);
+        Result result = new Result(Result.CODE_SUCCESS, url, svgaVideoEntity);
+        SVGALoader.loadFinished(result);
     }
 
     @Override
     public void onError() {
-        LoadResult result = new LoadResult(LoadResult.CODE_ERROR_1001, svgaViewKey, svgaViewTag);
-        SVGALoaderManager.getInstance().dealResult(result);
+        Result result = new Result(Result.CODE_ERROR_1002, url, null);
+        SVGALoader.loadFinished(result);
     }
 }
