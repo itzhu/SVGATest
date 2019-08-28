@@ -11,11 +11,11 @@ import me.test.svga.svgaloader.Result;
  * Created by itzhu on 2019/8/24.
  * 这个类是不允许直接new的
  */
-class SVGAParserCompletion implements SVGAParser.ParseCompletion {
+class SVGAParserListener implements SVGAParser.ParseCompletion {
 
     private String url;
 
-    public SVGAParserCompletion(@NonNull String url) {
+    public SVGAParserListener(@NonNull String url) {
         this.url = url;
     }
 

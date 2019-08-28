@@ -10,12 +10,12 @@ import me.test.svga.svgaloader.Result;
 /**
  * Created by itzhu on 2019/8/27.
  */
-public class FileDownloadListener implements OnDownloadListener {
+public class SVGADownloadListener implements OnDownloadListener {
     private String url;
     private File cacheDir;
     private String fileName;
 
-    public FileDownloadListener(String url, File cacheDir, String fileName) {
+    public SVGADownloadListener(String url, File cacheDir, String fileName) {
         this.url = url;
         this.cacheDir = cacheDir;
         this.fileName = fileName;
@@ -28,6 +28,7 @@ public class FileDownloadListener implements OnDownloadListener {
 
     @Override
     public void onError(Error error) {
+        SL.d("error->",error);
         Result result = new Result(Result.CODE_ERROR_1001,url,null);
         SVGALoader.loadFinished(result);
     }

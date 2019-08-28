@@ -106,15 +106,19 @@ public class Target<V extends SVGAExtView> {
 
     public void setResult(@NonNull Result result) {
         SL.d("result:" + result.toString());
+        SVGAExtView view = getView();
+        if (view == null) {
+            return;
+        }
         if (result.isSuccess()) {
-            SVGAExtView view = getView();
-            if (view != null) {
-                SVGAVideoEntity entity = result.getSvgaVideoEntity();
-                if (cacheKey != null && url != null && entity != null) {
-                    SVGACacheManager.getInstance().getLruCache(cacheKey).put(url, entity);
-                }
-                view.setVideoEntity(entity);
+            SVGAVideoEntity entity = result.getSvgaVideoEntity();
+            if (cacheKey != null && url != null && entity != null) {
+                SVGACacheManager.getInstance().getLruCache(cacheKey).put(url, entity);
             }
+            view.setVideoEntity(entity);
+            view.start();
+        } else {
+            view.clear();
         }
     }
 }

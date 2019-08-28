@@ -11,11 +11,19 @@ import me.test.svga.loader.SL;
 
 /**
  * Created by itzhu on 2019/8/24.
+ * //DESC 2019/8/28 9:44 itz @desc: 只有一帧时，表示这个svga是一个今天图片转成的，这里就只显示第一帧图片。
+ * //虽然视觉效果看不出什么差别，界面GPU也没有刷新。但是如果只有一帧的时候也显示动画，仍然会占用CPU。
+ * 注意frame只有一帧时，将不会开始动画，如果动画包含声音等信息，建议重写SvgaExtView或者自定义属性。
  */
 public class SVGAExtView extends SVGAImageView {
 
     private boolean startAutoPlay = true;
     private SVGAVideoEntity svgaVideoEntity = null;
+
+    /**
+     * 检测图片是否只有一帧。
+     */
+    private boolean svgaIsOneFrame = false;
 
     public SVGAExtView(Context context) {
         super(context);
@@ -53,25 +61,27 @@ public class SVGAExtView extends SVGAImageView {
             return;
         }
         setVideoItem(entity);
+        SL.d("SVGAVideoEntity:" + entity.getFPS() + "---" + entity.getFrames());
         svgaVideoEntity = entity;
+        svgaIsOneFrame = (entity.getFrames() <= 1);
         if (startAutoPlay) {
-            startAnimation();
+            start();
         }
     }
 
     public void start() {
         startAutoPlay = true;
         if (svgaVideoEntity != null) {
-            startAnimation();
+            if (svgaIsOneFrame) {
+                stepToFrame(0, false);
+            } else {
+                startAnimation();
+            }
+            //startAnimation();
         }
     }
 
-    public void pause() {
-        startAutoPlay = false;
-        pauseAnimation();
-    }
-
-    public void stop() {
+    public void clear() {
         startAutoPlay = false;
         stopAnimation(true);
         svgaVideoEntity = null;

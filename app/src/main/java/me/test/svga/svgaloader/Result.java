@@ -16,7 +16,14 @@ public class Result {
      */
     public static final int CODE_SUCCESS_CACHE = 101;
 
+    /**
+     * 下载文件失败
+     */
     public static final int CODE_ERROR_1001 = -1001;
+
+    /**
+     * 解析文件失败
+     */
     public static final int CODE_ERROR_1002 = -1002;
 
     private int stateCode;
@@ -44,7 +51,6 @@ public class Result {
     public boolean isSuccess() {
         return CODE_SUCCESS == stateCode || CODE_SUCCESS_CACHE == stateCode;
     }
-
 
     @Override
     public String toString() {

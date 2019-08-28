@@ -3,7 +3,6 @@ package me.test.svga.loader;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.LruCache;
-import android.view.LayoutInflater;
 
 import com.downloader.PRDownloader;
 import com.opensource.svgaplayer.SVGAParser;
@@ -87,6 +86,7 @@ public class SVGACacheManager {
                 file = TApplication.getInstance().getCacheDir();
             }
         }
+        SL.d("cache dir:" + file.getAbsolutePath());
         return file.getAbsolutePath();
     }
 
@@ -99,7 +99,7 @@ public class SVGACacheManager {
     public synchronized void decodeFile(String url, File file, String cacheName) {
         try {
             InputStream inputStream = new FileInputStream(file);
-            mSVGAParser.decodeFromInputStream(inputStream, cacheName, new SVGAParserCompletion(url), true);
+            mSVGAParser.decodeFromInputStream(inputStream, cacheName, new SVGAParserListener(url), true);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -112,7 +112,7 @@ public class SVGACacheManager {
      */
     public synchronized void downloadFile(String url, File cacheDir, String fileName) {
         int downloadId = PRDownloader.download(url, cacheDir.getAbsolutePath(), fileName)
-                .setTag(url).build().start(new FileDownloadListener(url, cacheDir, fileName));
+                .setTag(url).build().start(new SVGADownloadListener(url, cacheDir, fileName));
     }
 
     public void add(Target<SVGAExtView> target) {
